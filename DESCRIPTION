@@ -1,0 +1,11 @@
+Package: Syrinx
+Type: Package
+Title: Various Network Functions
+Version: 0.1.0
+Author: Joe Mruzek <joseph.mruzek@uta.edu>
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: Various Network Functions at a various level of copyright legality.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
