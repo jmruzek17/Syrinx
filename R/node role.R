@@ -86,21 +86,40 @@ node.role <- function(Thresh.Adj.Mat, threshold, nnodes.mod = 5)
   for(p in 1:nrow(mod.conmat)){
     mod.conmat[p,1] <- names(spp.mat)[p]
     mod.conmat[p,2] <- as.numeric(igraph::degree(weight.g)[p])
-    spp.edge        <-table(E(weight.g)$connectiontype)
 
-    if(length(spp.edge)==1){
-      if(names(spp.edge)=="InModule"){
-        mod.conmat[p,3] <- spp.edge
-      }else {
-        mod.conmat[p,4] <- spp.edge}}
-    else{
-      for(pp in 1:length(spp.edge)){
-        if(names(spp.edge[pp])=="InModule"){
-          mod.conmat[p,3] <- spp.edge[pp]}else {mod.conmat[p,4] <- spp.edge[pp]
-        }
-      }
-    }
+    Snoop    <- paste0(mod.conmat[p,1])
+    iso.sps1 <- edge.dflist[(edge.dflist$spp1 == Snoop),]
+    iso.sps2 <- edge.dflist[(edge.dflist$spp2 == Snoop),]
+
+    iso.sps  <- rbind(iso.sps1, iso.sps2)
+
+    mod.conmat[p,3] <- nrow(iso.sps[which(iso.sps$modcontype == "OutModule"),])
+    mod.conmat[p,4] <- nrow(iso.sps[which(iso.sps$modcontype == "InModule"),])
+
+    #
+    #
+    spp.edge        <- table(E(weight.g)$connectiontype)
+
   }
+
+# for(p in 1:nrow(mod.conmat)){
+#    mod.conmat[p,1] <- names(spp.mat)[p]
+#    mod.conmat[p,2] <- as.numeric(igraph::degree(weight.g)[p])
+#    spp.edge        <-table(E(weight.g)$connectiontype)#
+#
+#    if(length(spp.edge)==1){
+#      if(names(spp.edge)=="InModule"){
+#        mod.conmat[p,3] <- spp.edge
+#      }else {
+#        mod.conmat[p,4] <- spp.edge}}
+#    else{
+#      for(pp in 1:length(spp.edge)){
+#        if(names(spp.edge[pp])=="InModule"){
+#          mod.conmat[p,3] <- spp.edge[pp]}else {mod.conmat[p,4] <- spp.edge[pp]
+#        }
+#      }
+#   }
+#  }
 
   for(p in 1:nrow(mod.conmat)){
     mod.conmat[p,5] <- as.numeric(igraph::strength(weight.g))[p]
