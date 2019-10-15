@@ -93,9 +93,8 @@ node.role <- function(Thresh.Adj.Mat, threshold, nnodes.mod = 5)
 
     iso.sps  <- rbind(iso.sps1, iso.sps2)
 
-    mod.conmat[p,3] <- nrow(iso.sps[which(iso.sps$modcontype == "OutModule"),])
-    mod.conmat[p,4] <- nrow(iso.sps[which(iso.sps$modcontype == "InModule"),])
-
+    mod.conmat[p,3] <- nrow(iso.sps[which(iso.sps$modcontype == "InModule"),])
+    mod.conmat[p,4] <- nrow(iso.sps[which(iso.sps$modcontype == "OutModule"),])
     #
     #
     spp.edge        <- table(E(weight.g)$connectiontype)
